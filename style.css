@@ -1,0 +1,23 @@
+.currentWeather {
+    font-family: monospace;
+    font-size: large;
+    border: 1px solid #4e4e4e;
+    margin: 1rem 1rem 0 0;
+    padding: 0 1rem;
+    max-width: 224px;
+    display: inline-block;
+
+}
+
+.container {
+    padding: 0 1rem;
+}
+
+body {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
