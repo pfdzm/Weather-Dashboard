@@ -3,7 +3,6 @@ let app = document.querySelector("#app");
 var mymap;
 
 function getWeather(city) {
-  let weather;
   let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9e32576aa8bc031eff72e8140283217f&units=metric`;
   fetch(queryURL)
     .then(res => {
@@ -23,7 +22,6 @@ function getWeather(city) {
       if (!mymap) {
         renderMap(res);
       }
-
       addMarker(res);
     });
 }
@@ -37,7 +35,7 @@ form.addEventListener("submit", e => {
 });
 
 function renderMap(weather) {
-  mymap = L.map("mapid").setView([weather.coord.lat, weather.coord.lon], 13);
+  mymap = L.map("mapid").setView([weather.coord.lat, weather.coord.lon], 7);
 
   L.tileLayer(
     `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}`,
@@ -62,4 +60,5 @@ function addMarker(weather) {
       <p>Wind Speed: ${weather.wind.speed} km/h</p>
       `
     );
+  mymap.panTo([weather.coord.lat, weather.coord.lon]);
 }
