@@ -24,13 +24,12 @@ function getWeather(city = "berlin,de") {
     })
     .then(res => {
       addMarker(res);
-      // renderWeatherCard(res);
+      renderWeatherCard(res);
     });
 }
 
 function renderWeatherCard(res) {
   target.innerHTML += `
-      <div class="col-sm-4">
         <div class="card" >
           <div class="card-body">
             <h4 class="card-title">${res.name}</h4>
@@ -39,7 +38,6 @@ function renderWeatherCard(res) {
             <p>Wind Speed: ${res.wind.speed} km/h</p>
           </div>
         </div>
-      </div>
     `;
 }
 

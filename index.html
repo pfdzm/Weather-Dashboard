@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Weather Dashboard</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
@@ -20,22 +20,26 @@
   </head>
   <body>
     <div id="app" class="container">
-      <h1>Weather Search</h1>
-      <p>Search for current weather using the Open Weather API</p>
+      <div class="jumbotron card my-3">
+        <h1 class="display-4 text-primary">Weather Search</h1>
+        <p class="lead">
+          Search for current weather using the Open Weather API
+        </p>
+      </div>
       <div class="card">
         <div class="card-body">
           <form id="search" class="form-inline">
             <div class="form-group">
-              <label for="city" class="mb-2 mr-sm-2">City</label>
+              <label for="city" class="mr-sm-2">City</label>
               <input
                 id="city"
-                class="form-control mb-2 mr-sm-2"
+                class="form-control mr-sm-2"
                 name="ship-city"
                 autocomplete="address-level2"
                 placeholder="Berlin"
               />
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </div>
       </div>
@@ -45,7 +49,12 @@
           <div id="mapid"></div>
         </div>
       </div>
-      <div class="row" id="target"></div>
+      <div class="card mt-3">
+        <div class="card-body">
+          <h6 class="card-title">Cities</h6>
+          <div class="d-flex justify-content-between" id="target"></div>
+        </div>
+      </div>
     </div>
     <script src="index.js"></script>
   </body>
