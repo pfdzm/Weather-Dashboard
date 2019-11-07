@@ -16,6 +16,7 @@ app.addEventListener("submit", e => {
 });
 
 function getWeather(city = "berlin,de") {
+  city = city.trim().replace(/\s/gi, "+")
   let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9e32576aa8bc031eff72e8140283217f&units=metric`;
   fetch(queryURL)
     .then(res => {
@@ -62,11 +63,14 @@ function addMarker(weather, map = mymap) {
   L.marker([weather.coord.lat, weather.coord.lon])
     .addTo(map)
     .bindPopup(
-      ` <h4>${weather.name}</h4>
-      <p>Temperature: ${weather.main.temp} C (${weather.weather[0].description})</p>
-      <p>Humidity: ${weather.main.humidity}%</p>
-      <p>Wind Speed: ${weather.wind.speed} km/h</p>
+      ` <h6>${weather.name}</h6>
+      <span>
+      Temperature: ${weather.main.temp} C (${weather.weather[0].description}) <br>
+      Humidity: ${weather.main.humidity}%<br>
+      Wind Speed: ${weather.wind.speed} km/h
+      </span>
       `
-    );
+    )
+    .openPopup();
   map.panTo([weather.coord.lat, weather.coord.lon]);
 }
