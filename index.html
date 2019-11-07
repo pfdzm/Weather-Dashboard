@@ -22,14 +22,29 @@
     <div id="app" class="container">
       <h1>Weather Search</h1>
       <p>Search for current weather using the Open Weather API</p>
-      <form id="search">
-        <div class="form-group">
-          <label for="city">City</label>
-          <input id="city" class="form-control" name="ship-city" autocomplete="address-level2"/>
+      <div class="card">
+        <div class="card-body">
+          <form id="search" class="form-inline">
+            <div class="form-group">
+              <label for="city" class="mb-2 mr-sm-2">City</label>
+              <input
+                id="city"
+                class="form-control mb-2 mr-sm-2"
+                name="ship-city"
+                autocomplete="address-level2"
+                placeholder="Berlin"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+          </form>
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-      <div id="mapid"></div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body">
+          <h6 class="card-title">Map</h6>
+          <div id="mapid"></div>
+        </div>
+      </div>
       <div class="row" id="target"></div>
     </div>
     <script src="index.js"></script>
