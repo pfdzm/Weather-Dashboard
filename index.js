@@ -16,21 +16,25 @@ app.addEventListener("submit", e => {
 });
 
 function getWeather(city = "berlin,de") {
-  city = city.trim().replace(/\s/gi, "+")
+  city = city.trim().replace(/\s/gi, "+");
   let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9e32576aa8bc031eff72e8140283217f&units=metric`;
-  fetch(queryURL)
-    .then(res => {
-      return res.json();
-    })
-    .then(res => {
-      addMarker(res);
-      renderWeatherCard(res);
-    });
+
+  fetch(queryURL).then(res => {
+    console.log(res);
+    if (res.ok) {
+      res.json().then(res => {
+        addMarker(res);
+        renderWeatherCard(res);
+      });
+    } else {
+      console.log("City not found (404)");
+    }
+  });
 }
 
 function renderWeatherCard(res) {
   target.innerHTML += `
-        <div class="card" >
+        <div class="card m-sm-1" style="width:18rem">
           <div class="card-body">
             <h4 class="card-title">${res.name}</h4>
             <p>Temperature: ${res.main.temp} C (${res.weather[0].description})</p>
