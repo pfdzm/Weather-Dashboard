@@ -20,13 +20,18 @@ function getWeather(city = "berlin,de") {
   let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9e32576aa8bc031eff72e8140283217f&units=metric`;
 
   fetch(queryURL).then(res => {
+    let input = document.querySelector("#city");
     console.log(res);
     if (res.ok) {
       res.json().then(res => {
+        input.classList.remove('text-danger')
         addMarker(res);
         renderWeatherCard(res);
+        input.focus();
       });
     } else {
+      input.classList.add('text-danger');
+      input.focus();
       console.log("City not found (404)");
     }
   });
