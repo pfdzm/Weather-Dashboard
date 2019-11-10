@@ -1,7 +1,10 @@
 let app = document.querySelector("#app");
 let target = document.querySelector("#target");
 let form = document.querySelector("#search");
+let forecast = document.querySelector("#forecast");
 let mymap;
+let searchHistory = [];
+const APPID = "9e32576aa8bc031eff72e8140283217f";
 
 document.addEventListener("load", renderMap());
 
@@ -9,30 +12,75 @@ app.addEventListener("submit", e => {
   e.preventDefault();
   let city = document.querySelector("#city").value;
   if (city !== "") {
-    getWeather(city);
+    getCurrWeather(city);
   } else {
-    getWeather();
+    getCurrWeather();
   }
 });
 
-function getWeather(city = "berlin,de") {
+function getCurrWeather(city = "berlin,de") {
   city = city.trim().replace(/\s/gi, "+");
-  let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9e32576aa8bc031eff72e8140283217f&units=metric`;
+  let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${APPID}&units=metric`;
 
   fetch(queryURL).then(res => {
     let input = document.querySelector("#city");
-    console.log(res);
     if (res.ok) {
       res.json().then(res => {
-        input.classList.remove('text-danger')
+        // push city name, id and current weather into saved city list
+        searchHistory.push({ name: res.name, id: res.id, weather: res.main });
+        console.log(searchHistory);
+        console.log(res);
         addMarker(res);
         renderWeatherCard(res);
+        getFiveDayForecast(res.id);
+        input.classList.remove("text-danger");
         input.focus();
       });
     } else {
-      input.classList.add('text-danger');
+      input.classList.add("text-danger");
       input.focus();
       console.log("City not found (404)");
+    }
+  });
+}
+
+function renderForecast(arr) {
+  forecast.innerHTML = "";
+  arr.forEach(res => {
+    forecast.innerHTML += `
+    <div class="card mt-3 " style="width: 18rem">
+      <div class="card-body">
+        <h6 class="card-title">${moment
+          .unix(res.dt)
+          .utc()
+          .format("LL")}</h6>
+        <p>Temperature: ${res.main.temp} C (${res.weather[0].description})</p>
+        <p>Humidity: ${res.main.humidity}%</p>
+        <p>Wind Speed: ${res.wind.speed} km/h</p>
+      </div>
+    </div>`;
+  });
+}
+
+function getFiveDayForecast(id = "2950159") {
+  let queryURL = `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${APPID}`;
+  let fiveDays;
+
+  fetch(queryURL).then(res => {
+    if (res.ok) {
+      res.json().then(res => {
+        fiveDays = res.list.filter((elem, index) => index % 8 === 0);
+        renderForecast(fiveDays);
+        fiveDays.forEach(element => {
+          console.log({
+            date: moment
+              .unix(element.dt)
+              .utc()
+              .format("LL"),
+            weather: element
+          });
+        });
+      });
     }
   });
 }
