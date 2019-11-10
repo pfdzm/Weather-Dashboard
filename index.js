@@ -48,7 +48,7 @@ function renderForecast(arr) {
   forecast.innerHTML = "";
   arr.forEach(res => {
     forecast.innerHTML += `
-    <div class="card mt-3 " style="width: 18rem">
+    <div class="card mt-3 mr-3" style="width: 18rem">
       <div class="card-body">
         <h6 class="card-title">${moment
           .unix(res.dt)
@@ -87,7 +87,7 @@ function getFiveDayForecast(id = "2950159") {
 
 function renderWeatherCard(res) {
   target.innerHTML += `
-        <div class="card m-sm-1" style="width:18rem">
+        <div class="card mt-3 mr-3" style="width: 18rem">
           <div class="card-body">
             <h4 class="card-title">${res.name}</h4>
             <p>Temperature: ${res.main.temp} C (${res.weather[0].description})</p>
