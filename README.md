@@ -1,6 +1,8 @@
 # Weather-Dashboard
 
-Takes user input for a city, gets weather from OpenWeather API, gets map from Leaflet JS, map tiles from OpenStreetMaps, displays marker in city location with weather info
+Takes user input for a city, gets weather from OpenWeather API, gets map from Leaflet JS, map tiles from OpenStreetMaps, displays marker in city location with weather info.
+
+Uses HTML5, CSS3 and 'vanilla' JS, as well as Bootstrap CSS library for basic design/wireframe.
 
 ## Deployment
 
